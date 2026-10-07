@@ -1,0 +1,12 @@
+# داده‌های تولیدشده توسط سامانه (روی هاست ساخته می‌شوند)
+config/config.php
+config/installed.lock
+storage/database/*
+storage/sessions/*
+storage/backups/*
+storage/uploads/*
+storage/logs/*
+storage/exports/*
+!storage/**/.gitkeep
+.DS_Store
+*.log

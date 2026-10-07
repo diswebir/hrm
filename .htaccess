@@ -1,0 +1,30 @@
+# =============================================================
+# HRM — تنظیمات آپاچی برای هاست‌های اشتراکی cPanel
+# =============================================================
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # دسترسی مستقیم به پوشه‌های داخلی ممنوع
+    RewriteRule ^(app|config|storage|install|lang)(/|$) - [F,L]
+
+    # اگر فایل یا پوشه وجود دارد، خودش سرو شود
+    RewriteCond %{REQUEST_FILENAME} -f [OR]
+    RewriteCond %{REQUEST_FILENAME} -d
+    RewriteRule ^ - [L]
+
+    # همه درخواست‌ها به index.php
+    RewriteRule ^ index.php [QSA,L]
+</IfModule>
+
+# مسدود کردن دسترسی مستقیم به فایل‌های حساس (حتی بدون mod_rewrite)
+<FilesMatch "^(config\.php|installed\.lock|schema\.sql|\.env|\.gitignore)$">
+    Require all denied
+</FilesMatch>
+
+<IfModule mod_headers.c>
+    Header set X-Content-Type-Options "nosniff"
+    Header set X-Frame-Options "SAMEORIGIN"
+    Header set Referrer-Policy "same-origin"
+</IfModule>

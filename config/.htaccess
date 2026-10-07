@@ -1,0 +1,3 @@
+<FilesMatch "\.(php|lock)$">
+Require all denied
+</FilesMatch>
